@@ -1,34 +1,31 @@
 import java.util.Scanner;
 
-public class banksystem {
-    public static void main(String[] args) {
-        Banksystem bank1 = new Banksystem("XYZ", "01");
-        bank1.showMenu();
-    }
-}
+public class BankSystem {
+    private int balance;
+    private int previousTransaction;
+    private String customerName;
+    private String customerID;
 
-class Banksystem {
-    int balance;
-    int previousTransaction;
-
-    Banksystem(String cname, String cid) {
-        // You might want to use cname and cid to set customer name and ID
+    public BankSystem(String cname, String cid) {
+        customerName = cname;
+        customerID = cid;
     }
-    void deposit(int amount) {
+
+    public void deposit(int amount) {
         if (amount != 0) {
             balance = balance + amount;
             previousTransaction = amount;
         }
     }
 
-    void withdraw(int amount) {
+    public void withdraw(int amount) {
         if (amount != 0) {
             balance = balance - amount;
             previousTransaction = -amount;
         }
     }
 
-    void getPreviousTransaction() {
+    public void getPreviousTransaction() {
         if (previousTransaction > 0) {
             System.out.println("Deposit: " + previousTransaction);
         } else if (previousTransaction < 0) {
@@ -38,15 +35,15 @@ class Banksystem {
         }
     }
 
-    void showMenu() {
+    public void showMenu() {
         Scanner sc = new Scanner(System.in);
-
-        System.out.println("Welcome: " + " customerName");
-        System.out.println("Your ID is: " + " costumerid");
-        System.out.println();
         char option;
 
         do {
+            System.out.println("====================");
+            System.out.println("Welcome: " + customerName);
+            System.out.println("Your ID is: " + customerID);
+            System.out.println();
             System.out.println("====================");
             System.out.println("A. Check balance");
             System.out.println("B. Deposit");
@@ -59,38 +56,47 @@ class Banksystem {
             option = sc.next().charAt(0);
 
             switch (option) {
-                case 'A' -> {
+                case 'A':
                     System.out.println("===================");
                     System.out.println("Balance is: " + balance);
                     System.out.println("===================");
-                }
+                    break;
 
-                case 'B' -> {
+                case 'B':
                     System.out.println("====================");
                     System.out.println("Enter the amount to deposit:");
                     int depositAmount = sc.nextInt();
                     deposit(depositAmount);
                     System.out.println("====================");
-                }
+                    break;
 
-                case 'C' -> {
+                case 'C':
                     System.out.println("====================");
                     System.out.println("Enter the amount to withdraw:");
                     int withdrawAmount = sc.nextInt();
                     withdraw(withdrawAmount);
                     System.out.println("====================");
-                }
+                    break;
 
-                case 'D' -> {
+                case 'D':
                     System.out.println("====================");
                     getPreviousTransaction();
                     System.out.println("====================");
-                }
+                    break;
 
-                case 'E' -> System.out.println("Exiting the system. Thank you!");
+                case 'E':
+                    System.out.println("Exiting the system. Thank you!");
+                    break;
 
-                default -> System.out.println("Invalid Option! Please try again");
+                default:
+                    System.out.println("Invalid Option! Please try again");
+                    break;
             }
         } while (option != 'E');
+    }
+
+    public static void main(String[] args) {
+        BankSystem bank1 = new BankSystem("fed", "SL900201");
+        bank1.showMenu();
     }
 }
